@@ -1,0 +1,109 @@
+html, body{
+	height:100%;
+}
+
+#sendMsg {
+	position: fixed;
+	bottom: 1em;
+	left: 0px;
+	width: 100%;
+	padding: 0.5em;
+	background-color: #FEFEFE;
+	z-index: 10;
+}
+
+#conversationSpace {
+	padding-top: 5em;
+	padding-bottom: 5em;
+}
+
+#lobby{
+	padding-top: 5em;
+}
+
+.bubbleMe {
+	display: inline-block;
+	position: relative;
+	min-width: 10em;
+	min-height: 3em;
+	padding: 0.5em 1em 0em;
+	margin-bottom: 1em;
+	background: #52C1FF;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	text-align: left;
+}
+
+.bubbleMe:after {
+	content: '';
+	position: absolute;
+	border-style: solid;
+	border-width: 10px 0 10px 11px;
+	border-color: transparent #52C1FF;
+	display: block;
+	width: 0;
+	z-index: 1;
+	margin-top: -10px;
+	right: -11px;
+	top: 1em;
+}
+
+.bubbleOther {
+	display: inline-block;
+	position: relative;
+	min-width: 10em;
+	min-height: 3em;
+	padding: 0.5em 1em;
+	margin-bottom: 1em;
+	background: #a3f6a3;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	text-align: left;
+}
+
+.bubbleOther:after {
+	content: '';
+	position: absolute;
+	border-style: solid;
+	border-width: 10px 11px 10px 0;
+	border-color: transparent #a3f6a3;
+	display: block;
+	width: 0;
+	z-index: 1;
+	margin-top: -10px;
+	left: -11px;
+	top: 1em;
+}
+
+p.timestamp {
+	font-size: xx-small;
+	color: #999;
+	margin: 0.2rem;
+}
+
+.chatroomIcon{
+	display: inline-block;
+	margin: 1em;
+	width: 18em;
+}
+.chatroomIcon .actionDelete {
+	float: right;
+	color: #EEEEEE;
+}
+
+.chatroomIcon .actionDelete:hover {
+	color: #f8120c;
+	cursor: pointer;
+}
+
+.chatroomIcon .chatroomDescription{
+	height: 6em;
+	word-wrap: break-word;
+	text-overflow: ellipsis;
+}
+
+#actionChatroomCreate{
+	margin-top: 0.5em;
+}
