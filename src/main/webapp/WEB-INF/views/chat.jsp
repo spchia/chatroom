@@ -6,7 +6,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="utf-8">
-<title>Chatroom: Default</title>
+<title>Chatroom</title>
 <link href='<c:url value="/r/bootstrap/css/bootstrap.css"/>' rel="stylesheet" />
 <link href='<c:url value="/r/css/chat.css"/>' rel="stylesheet" />
 <script type="text/javascript" src='<c:url value="/r/jquery-1.12.0.min.js"/>'></script>
