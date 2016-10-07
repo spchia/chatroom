@@ -4,7 +4,7 @@ function setConnected(connected) {
 }
 
 function connect() {
-	var socket = new SockJS('/chatroom/hello');
+	var socket = new SockJS('/hello');
 	_stompClient = Stomp.over(socket);
 	_stompClient.connect({}, function(frame) {
 		setConnected(true);
@@ -25,6 +25,7 @@ function disconnect() {
 function sendMessage() {
 	var message = $("#messageText").val();
 	_stompClient.send("/app/hello/" + _roomId + "/user/" + _userId, {}, message);
+	$("#messageText").val("");
 }
 
 function showGreeting(response) {
@@ -50,13 +51,12 @@ function showGreeting(response) {
 
 function createSpeechBubbleMe(message, sender, timestamp) {
 	var fomattedDate = (new Date(timestamp)).toLocaleString();
-	var speechBubbleHtml = "<div class='row'>"
-			+ "<div class='col-md-2'></div>"
-			+ "<div class='col-md-8' style='text-align:right'><div class='bubbleMe'><p>"
-			+ message + "</p><p class='timestamp'>" + fomattedDate
-			+ "</p></div></div>"
-			+ "<div class='col-md-2' style='text-align:left'>" + sender
-			+ "</div>" + "</div>";
+	var speechBubbleHtml = "<div style='text-align:right;'>"
+			+ "<div class='bubbleMe'>" +
+					"<p class='sender'>"+sender+" say:</p>" +
+					"<p>" + message + "</p>" +
+					"<p class='timestamp'>" + fomattedDate + "</p>" 
+			+ "</div></div>";
 	var speechBubble = $.parseHTML(speechBubbleHtml);
 
 	return speechBubble;
@@ -64,13 +64,12 @@ function createSpeechBubbleMe(message, sender, timestamp) {
 
 function createSpeechBubbleOther(message, sender, timestamp) {
 	var fomattedDate = (new Date(timestamp)).toLocaleString();
-	var speechBubbleHtml = "<div class='row'>"
-			+ "<div class='col-md-2' style='text-align:right'>"
-			+ sender
-			+ "</div>"
-			+ "<div class='col-md-8' style='text-align:left'><div class='bubbleOther'><p>"
-			+ message + "</p><p class='timestamp'>" + fomattedDate
-			+ "</p></div></div>" + "<div class='col-md-2'></div>" + "</div>";
+	var speechBubbleHtml = "<div>"
+			+ "<div style='text-align:left'><div class='bubbleOther'>" +
+					"<p style='color:#333;font-size:0.8em'>"+sender+" say:</p>" +
+					"<p>" + message + "</p>" +
+					"<p class='timestamp'>" + fomattedDate + "</p>"
+			+ "</div></div></div>";
 	var speechBubble = $.parseHTML(speechBubbleHtml);
 
 	return speechBubble;
@@ -78,27 +77,25 @@ function createSpeechBubbleOther(message, sender, timestamp) {
 
 function clearChatroom(){
 	$("#conversationSpace").empty();
-	console.log("clear chatroom");
 }
 
 function getUrlHash(){
 	var url = window.location.href;
 	var idx = url.indexOf("#")
 	var hash = idx != -1 ? url.substring(idx+1) : "";
-	console.log("url: " + url + ", hash: " + hash);
 	return hash;
 }
 
 function createChatroom(){
 	var newChatroomName = $("#newChatroomName").val();
 	var newChatroomDescription = $("#newChatroomDescription").val();
-	$.post("/chatroom/lobby/create", {name:newChatroomName, description:newChatroomDescription, createdBy:_userId}, function(e){console.log("posted create")}); 
+	$.post("/lobby/create", {name:newChatroomName, description:newChatroomDescription, createdBy:_userId}, function(e){console.log("posted create")}); 
 	$('#createModal').modal('toggle');
 }
 
 function loadLobby(){
 	clearLobby();
-	$.getJSON("/chatroom/lobby/list", function(chatroomList, status){
+	$.getJSON("/lobby/list", function(chatroomList, status){
 		for(var i=0; i<chatroomList.length; i++){
 			addChatroom(chatroomList[i]);
 		}
@@ -145,7 +142,7 @@ function showLobby(){
 }
 
 function connectLobbyActionListener() {
-	var socket = new SockJS('/chatroom/hello');
+	var socket = new SockJS('/hello');
 	_lobbyStompClient = Stomp.over(socket);
 	_lobbyStompClient.connect({}, function(frame) {
 		_lobbyStompClient.subscribe('/topic/lobby', function(response) {
@@ -183,5 +180,5 @@ function enterChatroomAction(roomId) {
 
 function deleteChatroomAction(roomId) {
 	console.log("delete chatroom: " + roomId);
-	$.post("/chatroom/lobby/delete", {chatroomId:roomId}, function(e){}); 
+	$.post("/lobby/delete", {chatroomId:roomId}, function(e){}); 
 }

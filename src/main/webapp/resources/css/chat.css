@@ -1,5 +1,6 @@
 html, body{
 	height:100%;
+	width:100%;
 }
 
 #sendMsg {
@@ -13,8 +14,7 @@ html, body{
 }
 
 #conversationSpace {
-	padding-top: 5em;
-	padding-bottom: 5em;
+	padding: 5em 2em;
 }
 
 #lobby{
@@ -75,6 +75,11 @@ html, body{
 	margin-top: -10px;
 	left: -11px;
 	top: 1em;
+}
+
+p.sender {
+	color:#333;
+	font-size:0.8em;
 }
 
 p.timestamp {

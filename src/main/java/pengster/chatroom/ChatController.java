@@ -1,5 +1,6 @@
 package pengster.chatroom;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -13,7 +14,8 @@ public class ChatController {
 	@MessageMapping("/hello/{roomId}/user/{userId}")
 	@SendTo("/topic/{roomId}")
 	public ChatMessage greeting(@DestinationVariable String roomId, @DestinationVariable String userId, String message){
-		return new ChatMessage(userId, message);
+		String messageHtmlEncode = StringEscapeUtils.escapeHtml4(message);
+		return new ChatMessage(userId, messageHtmlEncode);
 	}
 
 }

@@ -1,21 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="utf-8">
 <title>Chatroom: Default</title>
-<link href="r/bootstrap/css/bootstrap.css" rel="stylesheet" />
-<link href="r/css/chat.css" rel="stylesheet" />
-<script type="text/javascript" src="r/jquery-1.12.0.min.js"></script>
-<script type="text/javascript" src="r/bootstrap/js/bootstrap.js"></script>
-<script type="text/javascript" src="r/sockjs-0.3.4.js"></script>
-<script type="text/javascript" src="r/stomp.js"></script>
-<script type="text/javascript" src="r/chatroom.js"></script>
+<link href='<c:url value="/r/bootstrap/css/bootstrap.css"/>' rel="stylesheet" />
+<link href='<c:url value="/r/css/chat.css"/>' rel="stylesheet" />
+<script type="text/javascript" src='<c:url value="/r/jquery-1.12.0.min.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/r/bootstrap/js/bootstrap.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/r/sockjs-0.3.4.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/r/stomp.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/r/chatroom.js"/>'></script>
 <script type="text/javascript">
+	var timestampStr = ((new Date()).getTime()).toString();
 	var _stompClient = null;
 	var _lobbyStompClient = null;
-	var _userId = (new Date()).getTime();
+	var _userId = timestampStr.substring(timestampStr.length-6, timestampStr.length);
 	var _roomId = "room1";
 
 	$(document).ready(function(){
